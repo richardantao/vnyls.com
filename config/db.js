@@ -5,12 +5,13 @@ mongoose.Promise = global.Promise;
 const mongoDB = process.env.DB_URL;
 
 const options = {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    connectTimeoutMS: 10000, 
-    socketTimeoutMS: 45000
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  reconnectTries: Number.MAX_VALUE,
+  connectTimeoutMS: 10000, 
+  socketTimeoutMS: 45000
 };
 
 mongoose.connect(mongoDB, options)
