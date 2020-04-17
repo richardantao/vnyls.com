@@ -1,0 +1,3 @@
+export const ERRORS_RETURNED = "ERRORS_RETURNED";
+export const ERRORS_LOGGED = "ERRORS_LOGGED"; 
+export const ERRORS_CLEARED = "ERRORS_CLEARED";
