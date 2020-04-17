@@ -8,6 +8,7 @@ const cors = require("cors");
 /* --- Configuration --- */
 const app = express();
 const port = process.env.PORT || 3001;
+require("./config/db");
 
 /* --- Middleware --- */
 app.use(helmet());
