@@ -1,8 +1,9 @@
 const { body, validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
 
 const User = require("../../models/Users");
 
-exports.register = (req, res) => {
+exports.register = (req, res, next) => {
     const errors = validationResult(req);
     const { first, last, email, password } = req.body;
 
@@ -22,7 +23,7 @@ exports.register = (req, res) => {
 
     body(password, "Password received an invalid input")
         .exists().withMessage("Password is a required field")
-        .isLength({ min: 8 }).withMessage("Password must be at least 8 characters")
+        .isLength({ min: 8, max: undefined }).withMessage("Password must be at least 8 characters")
         .escape();
 
     if(!errors.isEmpty()) return res.status(400).json({ message: errors.msg });
@@ -41,7 +42,7 @@ exports.register = (req, res) => {
     });
 };
 
-exports.login = (req, res) => {
+exports.login = (req, res, next) => {
     const errors = validationResult(req);
     const { email, password } = req.body;
 
@@ -57,8 +58,8 @@ exports.login = (req, res) => {
     .then(user => {
         if(!user.email) return res.status(404).json({ message: "This email is not associated with an active account" });
 
-        const passwordIsValid = bcrypt.compareSync(password, user.password);
-        if(!passwordIsValid) return res.status(401).json({ message: "Wrong password. Try again or click Forgot Password to reset it." });
+        const passwordIsValid = bcrypt.compare(password, user.password);
+        if(!passwordIsValid) return res.status(401).json({ message: "Incorrect password. Try again or click Forgot Password to reset it" });
 
         return next();
     })
