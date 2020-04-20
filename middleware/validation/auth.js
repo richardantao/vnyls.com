@@ -1,5 +1,7 @@
 const { body, validationResult } = require("express-validator");
 
+const User = require("../../models/Users");
+
 exports.register = (req, res) => {
     const errors = validationResult(req);
     const { first, last, email, password } = req.body;
@@ -25,7 +27,18 @@ exports.register = (req, res) => {
 
     if(!errors.isEmpty()) return res.status(400).json({ message: errors.msg });
 
-    return next();
+    User.findOne({ email }, {
+        _id: 0,
+        email: 1
+    })
+    .then(email => {
+        if(email) return res.status(400).json({ message: "This email is already associated with an active account" });
+
+        return next();
+    })
+    .catch(err => {
+        return res.status(500).json({ message: err.message });
+    });
 };
 
 exports.login = (req, res) => {
@@ -37,5 +50,19 @@ exports.login = (req, res) => {
 
     if(!errors.isEmpty()) return res.status(400).json({ message: errors.msg });
 
-    return next();
+    User.findOne({ email }, {
+        email: 1,
+        password
+    })
+    .then(user => {
+        if(!user.email) return res.status(404).json({ message: "This email is not associated with an active account" });
+
+        const passwordIsValid = bcrypt.compareSync(password, user.password);
+        if(!passwordIsValid) return res.status(401).json({ message: "Wrong password. Try again or click Forgot Password to reset it." });
+
+        return next();
+    })
+    .catch(err => {
+        return res.status(500).json({ message: err.message });
+    });
 };

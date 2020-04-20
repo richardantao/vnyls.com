@@ -5,12 +5,12 @@ const controller = require("../controllers/auth");
 
 router.post("/users", validation.register, controller.register);
 
-router.get("/users/:_id", auth, controller.user);
+router.get("/users", auth, controller.user);
 
-router.delete("/users/:_id", auth, controller.deactivate);
+router.delete("/users", auth, controller.terminate);
 
-router.put("/users/:_id/jwt", validation.login, controller.login);
+router.put("/users/authentication", validation.login, controller.login);
 
-router.delete("/users/:_id/jwt", auth, controller.logout);
+router.delete("/users/authentication", auth, controller.logout);
 
 module.exports = router;
