@@ -29,9 +29,8 @@ app.use(express.static(path.join(__dirname, "./views/build")));
 
 /* --- Routes --- */
 app.use("/api", require("./routes/auth"));
-app.use("/api", require("./routes/music"));
-app.use("/api", require("./routes/payments"));
 app.use("/api/errors", require("./routes/errors"));
+app.use("/api", require("./routes/payments"));
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "./views/build/index.html"));
