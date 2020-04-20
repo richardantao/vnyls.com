@@ -14,24 +14,22 @@ exports.register = (req, res) => {
             bcrypt.genSalt(10, (err, salt) => {
             if(err) return res.status(500).json({ message: "The server was unable to generate a salt for your password" });
             
-            bcrypt.hash("", salt, (err, hash) => {
+            bcrypt.hash(password, salt, (err, hash) => {
                 if(err) return res.status(500).json({ message: "The server was unable to hash your password" });
                 
-                password = hash;
-
-                return callback(null, password);
+                return callback(null, hash);
             });
         });
     };
 
-    const registerUser = (password, callback) => {
+    const registerUser = (hash, callback) => {
         User.create({
             name: {
                 first,
                 last
             },
             email,
-            password
+            password: hash
         })
         .then(user => {
             return callback(null, user);
