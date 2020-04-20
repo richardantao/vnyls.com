@@ -9,7 +9,6 @@ const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
-  reconnectTries: Number.MAX_VALUE,
   connectTimeoutMS: 10000, 
   socketTimeoutMS: 45000
 };
