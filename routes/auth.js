@@ -9,7 +9,7 @@ router.get("/users", auth, controller.user);
 
 router.delete("/users", auth, controller.terminate);
 
-router.put("/users/authentication", validation.login, controller.login);
+router.post("/users/authentication", validation.login, controller.login);
 
 router.delete("/users/authentication", auth, controller.logout);
 
