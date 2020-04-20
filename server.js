@@ -14,7 +14,14 @@ require("./config/db");
 
 /* --- Middleware --- */
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+    origin: [
+        "https://vynls.com",
+        'http://localhost:3000'
+    ],
+    credentials: true
+    })
+);
 app.use(cookieParser());
 app.use(xss());
 app.use(express.json());
@@ -23,8 +30,7 @@ app.use(express.static(path.join(__dirname, "./views/build")));
 /* --- Routes --- */
 app.use("/api", require("./routes/auth"));
 app.use("/api", require("./routes/music"));
-app.use("/api", require("./routes/paypal"));
-app.use("/api", require("./routes/stripe"));
+app.use("/api", require("./routes/payments"));
 app.use("/api/errors", require("./routes/errors"));
 
 app.get("*", (req, res) => {
