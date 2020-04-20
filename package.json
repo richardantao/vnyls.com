@@ -25,6 +25,7 @@
   "dependencies": {
     "async": "^3.2.0",
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -33,6 +34,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.6",
     "mongoose": "^5.9.9",
+    "paypal-rest-sdk": "^1.8.1",
+    "stripe": "^8.44.0",
     "winston": "^3.2.1",
     "xss-clean": "^0.1.1"
   },
