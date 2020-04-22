@@ -1,5 +1,5 @@
 {
-  "name": "vnyls.com",
+  "name": "vynls.com",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -33,7 +33,7 @@
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.6",
-    "mongoose": "^5.9.9",
+    "mongoose": "^5.9.10",
     "paypal-rest-sdk": "^1.8.1",
     "stripe": "^8.44.0",
     "winston": "^3.2.1",
