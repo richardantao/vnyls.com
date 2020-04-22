@@ -4,7 +4,11 @@
   "description": "",
   "main": "server.js",
   "directories": {
-    "test": "test"
+    "config": "config",
+    "controllers": "controllers",
+    "middleware": "middleware",
+    "test": "test",
+    "views": "views"
   },
   "scripts": {
     "dev": "concurrently \"nodemon server.js\" \"cd views && npm start\"",
@@ -24,10 +28,12 @@
   "homepage": "https://github.com/richardantao/vnyls.com#readme",
   "dependencies": {
     "async": "^3.2.0",
+    "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "dropbox": "^4.0.30",
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
     "helmet": "^3.22.0",
