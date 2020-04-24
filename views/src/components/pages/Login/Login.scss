@@ -1,0 +1,47 @@
+@import "../../../variables.scss";
+/* Login.css */
+
+#login {
+    /* --- Portrait Mobile --- */
+    position: relative;
+        top: 12rem;
+
+    input {
+        margin-bottom: 1rem;
+    }
+
+    button {
+        background-color: $accent-color;
+        margin-bottom: 0.5rem;
+    }
+
+    /* --- Landscape Mobile --- */
+    @media (min-width: 576px) {
+        
+    }
+
+    /* --- Portrait Tablet --- */
+    @media (min-width: 768px) {
+        width: 50%;
+    }
+
+    /* --- Landscape Tablet --- */
+    @media (min-width: 992px) {
+        
+    }
+
+    /* --- Small Laptop --- */
+    @media (min-width: 1200px) {
+        
+    }
+
+    /* --- Large Laptop --- */
+    @media (min-width: 1440px) {
+        
+    }
+
+    /* --- Desktop --- */
+    @media (min-width: 2100px) {
+        
+    }
+}
