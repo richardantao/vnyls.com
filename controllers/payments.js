@@ -3,112 +3,76 @@ const stripePublishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const paypal = require("../config/paypal");
 
-exports.payment = (req, res) => {
-    const { stripeEmail, stripeToken } = req.body;
+exports.createStripeSubscription = (req, res) => {
+    const { payment_method, email } = req.body;
 
     const createCustomer = callback => {
-        stripe.customers.create({
-            email: stripeEmail,
-            source: stripeToken
-        })
-        .then(customer => {
-            if(!customer) return res.status(404).json({ message: "New customer was not found" });
-
-            return callback(null, customer);
-        })
-        .catch(err => {
-            return res.status(500).json({ message: err.message });
+        const customer = stripe.customers.create({
+            payment_method,
+            email,
+            invoice_settings: {
+                default_payment_method: payment_method
+            }
         });
+
+        return callback(null, customer);
     };
 
-    const chargeCustomer = (customer, callback) => {
-        const amount = process.env.STRIPE_AMOUNT;
+    const createSubscription = (customer, callback) => {
 
-        stripe.charges.create({
-            amount,
-            description: "",
-            currency: "USD",
-            customer: customer.id
-        })
-        .then(charge => {
-            if(!charge) return res.status(404).json({ message: "New customer was not found" });
+        const subscription = stripe.subscriptions.create({
+            customer: customer.id,
+            items: [{ plan: process.env.STRIPE_SUBSCRIPTION_PLAN_ID }],
+            expand: ["latest_invoice.payment_intent"]
+        });
 
-            return callback(null, { message: "Payment processed" });
-        })
-        .catch(err => {
-            return res.status(500).json({ message: err.message });
-        });   
+        return callback(null, subscription);
     };
 
-    async.waterfall([ createCustomer, chargeCustomer ], (err, results) => {
+    const manageStatus = (subscription, callback) => {
+        const { latest_invoice } = subscription;
+        const { payment_intent } = latest_invoice;
+
+        if (payment_intent) {
+            const { client_secret, status } = payment_intent;
+
+            if (status === "requires_action") {
+                stripe.confirmCardPayment(client_secret).then(function(result) {
+                if (result.error) {
+                // Display error message in your UI.
+                // The card was declined (i.e. insufficient funds, card has expired, etc)
+                };
+
+                // Show a success message to your customer
+            });
+            }
+
+            // No additional information was needed
+            // Show a success message to your customer
+        }
+    };
+
+    async.waterfall([ createCustomer, createSubscription, manageStatus ], (err, results) => {
         if(err) return res.status(500).json({ message: err.message });
 
         return res.status(201).json(results);
     });
 };
 
-exports.key = (req, res) => {
-    return res.status(200).json({ stripePublishableKey });
+exports.deleteStripeSubscription = (req, res) => {
+    const { } = req.params;
+
 };
 
-exports.create = (req, res) => {
-    const payment = {
-        "intent": "sale",
-        "payer": {
-            "payment_method": "paypal"
-        },
-        "redirect_urls": {
-            "return_url": "http://localhost:3001/",
-            "cancel_url": "http://localhost:3000/"
-        },
-        "transactions": [{
-            "item_list": {
-                "items": [{
-                    "name": "Red Sox Hat",
-                    "sku": "001",
-                    "price": "25.00",
-                    "currency": "USD",
-                    "quantity": 1
-                }]
-            },
-            "amount": {
-                "currency": "USD",
-                "total": "25.00"
-            },
-            "description": "Hat for the best team ever"
-        }]
-    };
-
-    paypal.payment.create(payment, (err, results) => {
-        if(err) throw err;
-
-        results.map(({ links }) => {
-            if(links.rel === "approval_url") return res.redirect(links.href);
-            else return;
-        });
-    });
+exports.stripeKey = (req, res) => {
+    return res.status(200).json(stripePublishableKey);
 };
 
-exports.execute = (req, res) => {
-    const { PayerId, paymentId } = req.query;
+exports.createPaypalSubscription = (req, res) => {
 
-    const payer = {
-        "payer_id": PayerId,
-        "transactions": [{
-            "amount": {
-                "currency": "USD",
-                "total": "25.00"
-            }
-        }]
-    };
-
-    paypal.payment.execute(paymentId, payer, (err, payment) => {
-        if(err) throw err;
-
-        return res.status(201).json(payment);
-    });
 };
 
-exports.cancel = (req, res) => {
+exports.deletePaypalSubscription = (req, res) => {
+    const { } = req.params;
 
 };
