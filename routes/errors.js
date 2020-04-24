@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const controller = require("../controllers/errors");
 
-router.post("/", controller);
+router.post("/errors", controller);
 
 module.exports = router;
