@@ -1,11 +1,20 @@
 import React from "react";
 
-import { Card } from "reactstrap";
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from "reactstrap";
 
-export default () => {
+export default ({ href, title, subtitle, src, alt, text }) => {
     return (
-        <Card>
-
-        </Card>
+        <a href={"/blog" + href}>
+            <Card>
+            <CardBody>
+                <CardTitle>{title}</CardTitle>
+                <CardSubtitle>{subtitle}</CardSubtitle>
+            </CardBody>
+            <CardImg src={src} alt={alt}/>
+            <CardBody>
+                <CardText>{text}</CardText>
+            </CardBody>
+            </Card>
+        </a>
     );
 };
