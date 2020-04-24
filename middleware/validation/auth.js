@@ -10,7 +10,7 @@ exports.register = (req, res, next) => {
     body(first, "First Name received an invalid input")
         .exists().withMessage("First Name is a required field")
         .escape();
-    
+
     body(last, "Last Name received an invalid input")
         .exists().withMessage("Last Name is a required field")
         .escape();
@@ -28,10 +28,7 @@ exports.register = (req, res, next) => {
 
     if(!errors.isEmpty()) return res.status(400).json({ message: errors.msg });
 
-    User.findOne({ email }, {
-        _id: 0,
-        email: 1
-    })
+    User.findOne({ email }, { _id: 0, email: 1 })
     .then(email => {
         if(email) return res.status(400).json({ message: "This email is already associated with an active account" });
 
@@ -52,8 +49,9 @@ exports.login = (req, res, next) => {
     if(!errors.isEmpty()) return res.status(400).json({ message: errors.msg });
 
     User.findOne({ email }, {
+        _id: 0,
         email: 1,
-        password
+        password: 1
     })
     .then(user => {
         if(!user.email) return res.status(404).json({ message: "This email is not associated with an active account" });
