@@ -18,35 +18,9 @@ describe("/GET /api/songs", () => {
 
             res.should.have.property("status", 200);
 
-            res.body.should.be.a("object");
+            res.body.entries.should.be.a("array");
 
-            done();
-        });
-    });
-
-    it("", done => {
-        chai.request(server)
-        .get("/api/songs")
-        end((err, res) => {
-            if(err) throw err;
-
-            res.should.have.property("status", );
-
-            res.body.should.have.property("message");
-
-            done();
-        });
-    });
-
-    it("", done => {
-        chai.request(server)
-        .get("/api/songs")
-        end((err, res) => {
-            if(err) throw err;
-
-            res.should.have.property("status", );
-
-            res.body.should.have.property("message");
+            res.body.entries[0].should.have.property("name");
 
             done();
         });
