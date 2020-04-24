@@ -1,6 +1,5 @@
 const { Dropbox } = require("dropbox");
-const axios = require("axios");
-
+const fetch = require("isomorphic-fetch");
 const accessToken = process.env.DROPBOX_ACCESS_TOKEN;
 
-module.exports = new Dropbox({ accessToken, fetch: axios });
+module.exports = new Dropbox({ accessToken, fetch });
