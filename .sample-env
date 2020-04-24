@@ -1,0 +1,28 @@
+# environment
+PORT = 
+NODE_ENV = 
+PAYPAL_ENV = "sandbox" / "live"
+
+# database
+DB_URL = input mongo atlas connection string
+
+# 
+AUTH_EMAIL = your email
+
+# Dropbox
+DROPBOX_ACCESS_TOKEN = 
+DROPBOX_APP_KEY = 
+DROPBOX_APP_SECRET =
+
+# Paypal
+PAYPAL_CLIENT_ID = 
+PAYPAL_CLIENT_SECRET =
+PAYPAL_ACCESS_TOKEN = 
+
+# Stripe
+STRIPE_SUBSCRIPTION_PLAN_ID = 
+STRIPE_PUBLISHABLE_KEY = 
+STRIPE_SECRET_KEY =
+
+# secrets
+JWT_SECRET = create a +8 character string
