@@ -1,7 +1,7 @@
 /* --- Dependencies --- */
 require("dotenv").config();
 const express = require("express");
-const path = require("path");
+const { join } = require("path");
 const helmet = require("helmet");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -16,8 +16,9 @@ require("./config/db");
 app.use(helmet());
 app.use(cors({
     origin: [
-        "https://vynls.com",
-        'http://localhost:3000'
+        "https://vnyls.com/",
+        "https://www.vnyls.com/",
+        "http://localhost:3000/"
     ],
     credentials: true
     })
@@ -25,11 +26,11 @@ app.use(cors({
 app.use(cookieParser());
 app.use(xss());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "./views/build")));
+app.use(express.static(join(__dirname, "./views/build")));
 
 /* --- Routes --- */
 app.use("/api", require("./routes/auth"));
-app.use("/api/errors", require("./routes/errors"));
+app.use("/api", require("./routes/errors"));
 app.use("/api", require("./routes/payments"));
 app.use("/api", require("./routes/songs"));
 
