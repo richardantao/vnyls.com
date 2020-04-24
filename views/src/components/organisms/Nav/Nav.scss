@@ -1,0 +1,48 @@
+@import "../../../variables.scss";
+
+#nav {
+    /* --- Portrait Mobile --- */
+    background-color: $secondary-color;
+
+    a {
+        color: $primary-color;
+        font-weight: bold;
+    }
+
+    .highlight-link {
+        background-color: $accent-color;
+        border-radius: 0.25rem;
+    }
+
+    /* --- Landscape Mobile --- */
+    @media (min-width: 576px) {
+
+    }
+
+    /* --- Portrait Tablet --- */
+    @media (min-width: 768px) {
+        
+    }
+
+    /* ---  Landscape Tablet --- */
+    @media (min-width: 992px) {
+        
+    }
+
+    /* --- Small Laptop --- */
+    @media (min-width: 1200px) {
+        font-size: 1rem;
+        height: 5rem;
+    }
+
+    /* --- Large Laptop --- */
+    @media (min-width: 1440px) {
+        font-size: 1.2rem;
+    }
+
+    /* --- Desktop --- */
+    @media (min-width: 2100px) {
+        font-size: 2.25rem;
+        height: 7rem;
+    }
+}
