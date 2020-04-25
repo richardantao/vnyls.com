@@ -7,8 +7,8 @@ export default ({ href, title, subtitle, src, alt, text }) => {
         <a href={"/blog" + href}>
             <Card>
             <CardBody>
-                <CardTitle>{title}</CardTitle>
-                <CardSubtitle>{subtitle}</CardSubtitle>
+                <CardTitle><h3>{title}</h3></CardTitle>
+                <CardSubtitle><h4>{subtitle}</h4></CardSubtitle>
             </CardBody>
             <CardImg src={src} alt={alt}/>
             <CardBody>
