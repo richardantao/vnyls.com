@@ -20,7 +20,12 @@ export default class Home extends Component {
                 <main role="main" id="home">
                     <header id="overlay">
                         <img src={backdrop} id="hero" alt="Vinyl's Landing Page Backdrop"/>
-                        <Button href="/pricing" className="cta">Learn More</Button>
+                        <div className="img-floater">
+                            <h1>Lorem ipsum dolor sit amet…</h1>
+                            <h2>Quisque egestas tristique eros, et sollicitudin lectus convallis a</h2>
+                            <h2>Phasellus at vehicula dui. Fusce nulla mauris, pulvinar in sagittis a, suscipit id nisi.</h2>
+                            <Button href="/pricing" className="cta">Get Started</Button>
+                        </div>
                     </header>
                 </main>
                 <Footer/>
