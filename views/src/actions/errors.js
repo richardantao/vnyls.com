@@ -23,7 +23,7 @@ export const logErrors = (error, errorInfo) => dispatch => {
             dispatch(
                 returnErrors(err.request.data, err.request.status, "LOGGING_ERROR")
             );
-        } 
+        };
         dispatch(
             returnErrors("An error occurred", 500, "LOGGING_ERROR")
         );
