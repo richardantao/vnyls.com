@@ -3,6 +3,15 @@
         
     },
     "stripe": {
+        "paymentMethod": {
+            "type": "card",
+            "card": "cardElement",
+            "billing_details": {
+              "email": "jenny.rosen@example.com"
+            }
+        },
+        "customer": {
 
+        }
     }
 }
