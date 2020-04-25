@@ -6,10 +6,10 @@ export default () => {
     return (
         <>
             <NavItem>
-                <NavLink href="/login">Login</NavLink>
+                <NavLink href="/login">Sign In</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink href="/pricing#checkout" className="highlight-link">Register</NavLink>
+                <NavLink href="/pricing#checkout" className="highlight-link">Sign Up</NavLink>
             </NavItem>
         </>
     );
