@@ -12,12 +12,16 @@
 
     button {
         background-color: $accent-color;
-        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
     }
 
-    /* --- Landscape Mobile --- */
-    @media (min-width: 576px) {
-        
+    .login-form {
+        border: $border-color 1px solid;
+        border-radius: 1rem;
+        -webkit-box-shadow: 4px 6px 14px -6px rgba(0,0,0,0.75);
+        -moz-box-shadow: 4px 6px 14px -6px rgba(0,0,0,0.75);
+        box-shadow: 4px 6px 14px -6px rgba(0,0,0,0.75);
+        padding: 2rem 2rem 1rem 2rem;
     }
 
     /* --- Portrait Tablet --- */
@@ -25,23 +29,16 @@
         width: 50%;
     }
 
-    /* --- Landscape Tablet --- */
-    @media (min-width: 992px) {
-        
-    }
-
-    /* --- Small Laptop --- */
-    @media (min-width: 1200px) {
-        
-    }
-
-    /* --- Large Laptop --- */
-    @media (min-width: 1440px) {
-        
-    }
-
     /* --- Desktop --- */
     @media (min-width: 2100px) {
-        
+        top: 24rem;
+
+        .login-form {
+            font-size: 2rem;
+
+            input, button {
+                font-size: 2rem;
+            }
+        }
     }
 }
