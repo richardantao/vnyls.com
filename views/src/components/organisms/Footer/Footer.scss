@@ -3,6 +3,18 @@
 #footer {
     /* --- Portrait Mobile --- */
     background-color: $tertiary-color;
+    text-align: center;
+
+    #copyright {
+        color: $secondary-color;
+        font-weight: bold;
+        position: relative;
+        top: 30%;
+
+        a {
+            color: $accent-color;
+        }
+    }
 
     /* --- Landscape Mobile --- */
     @media (min-width: 576px) {
@@ -21,7 +33,7 @@
 
     /* --- Small Laptop --- */
     @media (min-width: 1200px) {
-        
+        height: 60px;
     }
 
     /* --- Large Laptop --- */
