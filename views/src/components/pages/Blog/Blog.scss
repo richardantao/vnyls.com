@@ -2,6 +2,27 @@
 
 #blog {
     /* --- Portrait Mobile --- */
+    height: 80vh;
+    
+    .card {
+        color: $secondary-color;
+
+        h3 {
+            color: $accent-color;
+        }
+    }
+
+    > * {
+        margin: 1rem;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .header {
+        
+    }
 
     /* --- Landscape Mobile --- */
     @media (min-width: 576px) {
