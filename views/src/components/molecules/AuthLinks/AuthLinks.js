@@ -6,7 +6,7 @@ export default () => {
     return (
         <>
             <NavItem>
-                <NavLink href="/login">Sign In</NavLink>
+                <NavLink href="/signin">Sign In</NavLink>
             </NavItem>
             <NavItem>
                 <NavLink href="/pricing#checkout" className="highlight-link">Sign Up</NavLink>
