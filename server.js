@@ -18,7 +18,7 @@ app.use(cors({
     origin: [
         "https://vnyls.com/",
         "https://www.vnyls.com/",
-        "http://localhost:3000/"
+        "http://localhost:3000"
     ],
     credentials: true
     })
