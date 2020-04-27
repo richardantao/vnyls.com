@@ -14,7 +14,7 @@ exports.register = (req, res) => {
             bcrypt.genSalt(10, (err, salt) => {
             if(err) return res.status(500).json({ message: "The server was unable to generate a salt for your password" });
             
-            bcrypt.hash(password, salt, (err, hash) => {
+            bcrypt.hash(password.trim(), salt, (err, hash) => {
                 if(err) return res.status(500).json({ message: "The server was unable to hash your password" });
                 
                 return callback(null, hash);
@@ -25,10 +25,10 @@ exports.register = (req, res) => {
     const registerUser = (hash, callback) => {
         User.create({
             name: {
-                first,
-                last
+                first: first.trim(),
+                last: last.trim()
             },
-            email,
+            email: email.trim(),
             password: hash
         })
         .then(user => {
@@ -82,16 +82,16 @@ exports.login = (req, res) => {
     User.findOne({ email }, { _id: 1 })
     .then(user => {
         const token = jwt.sign(
-            { id: user._id }, 
-            authSecret, 
-            { expiresIn: 3*(1000*60*60*24) } // expires in 72 hours
+            { id: user._id },
+            authSecret,
+            { expiresIn: "3d" }
         );
 
         return res.status(201).cookie("jwt", `Bearer ${token}`, {
             maxAge: 3*(1000*60*60*24),
             secure: true,
             httpOnly: true,
-        });    
+        });
     })
     .catch(err => {
         return res.status(500).json({ message: err.message });
