@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const secret = process.env.AUTH_SECRET;
 
 module.exports = (req, res, next) => {
-    const token = req.cookies.token;
+    const token = req.signedCookies.accessToken;
 
     if(!token) return res.status(401).json({ message: "Missing token, authorization denied" });
 
@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
 
         return next();
     } catch (err) {
-        res.clearCookie("access_token");
+        res.clearCookie("accessToken");
         return res.status(400).json({ message: "Token is not valid" });
     };
 };
