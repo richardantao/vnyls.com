@@ -5,23 +5,26 @@ const User = require("../../models/Users");
 
 exports.register = (req, res, next) => {
     const errors = validationResult(req);
-    const { first, last, email, password } = req.body;
+    const { email } = req.body;
 
-    body(first, "First Name received an invalid input")
+    body("first", "First Name received an invalid input")
         .exists().withMessage("First Name is a required field")
+        .trim()
         .escape();
 
-    body(last, "Last Name received an invalid input")
+    body("last", "Last Name received an invalid input")
         .exists().withMessage("Last Name is a required field")
+        .trim()
         .escape();
 
-    body(email, "Email received an invalid input")
+    body("email", "Email received an invalid input")
         .exists().withMessage("Email is a required field")
         .isEmail().withMessage("Email must be a valid email address")
+        .trim()
         .escape()
         .normalizeEmail();
 
-    body(password, "Password received an invalid input")
+    body("password", "Password received an invalid input")
         .exists().withMessage("Password is a required field")
         .isLength({ min: 8, max: undefined }).withMessage("Password must be at least 8 characters")
         .escape();
@@ -43,8 +46,12 @@ exports.login = (req, res, next) => {
     const errors = validationResult(req);
     const { email, password } = req.body;
 
-    body(email).escape();
-    body(password).escape();
+    body("email")
+        .trim()
+        .escape();
+    body("password")
+        .trim()
+        .escape();
 
     if(!errors.isEmpty()) return res.status(400).json({ message: errors.msg });
 
