@@ -13,10 +13,10 @@ exports.register = (req, res) => {
         const hashPassword = callback => {
             bcrypt.genSalt(10, (err, salt) => {
             if(err) return res.status(500).json({ message: "The server was unable to generate a salt for your password" });
-            
-            bcrypt.hash(password.trim(), salt, (err, hash) => {
+
+            bcrypt.hash(password, salt, (err, hash) => {
                 if(err) return res.status(500).json({ message: "The server was unable to hash your password" });
-                
+
                 return callback(null, hash);
             });
         });
@@ -25,10 +25,10 @@ exports.register = (req, res) => {
     const registerUser = (hash, callback) => {
         User.create({
             name: {
-                first: first.trim(),
-                last: last.trim()
+                first,
+                last
             },
-            email: email.trim(),
+            email,
             password: hash
         })
         .then(user => {
@@ -61,12 +61,12 @@ exports.user = (req, res) => {
     })
     .catch(err => {
         return res.status(500).json({ message: err.message });
-    }); 
+    });
 };
 
-exports.terminate = (req, res) => {
+exports.deregister = (req, res) => {
     const { _id } = req.user;
-    
+
     User.deleteOne(_id)
     .then(() => {
         return res.status(200);
@@ -79,18 +79,21 @@ exports.terminate = (req, res) => {
 exports.login = (req, res) => {
     const { email } = req.body;
 
-    User.findOne({ email }, { _id: 1 })
+    User.findOne({ email }, { _id: 1, name: 1 })
     .then(user => {
-        const token = jwt.sign(
-            { id: user._id },
-            authSecret,
-            { expiresIn: "3d" }
-        );
+        jwt.sign({
+            _id: user._id,
+            name: user.name
+        }, authSecret, { expiresIn: "3d" }, (err, token) => {
+            if(err) return res.status(500).json({ message: err.message });
+            console.log(`Token signed: ${token}`);
 
-        return res.status(201).cookie("jwt", `Bearer ${token}`, {
-            maxAge: 3*(1000*60*60*24),
-            secure: true,
-            httpOnly: true,
+            return res.status(201).cookie("accessToken", token, {
+                httpOnly: true,
+                maxAge: 3*60*60*24,
+                signed: true,
+                secure: true
+            }).json({ message: "Login successful" });
         });
     })
     .catch(err => {
@@ -99,5 +102,5 @@ exports.login = (req, res) => {
 };
 
 exports.logout = (req, res) => {
-    return res.status(200).clearCookie("jwt");
+    return res.status(200).clearCookie("accessToken").json({ message: "Logout successful" });
 };
