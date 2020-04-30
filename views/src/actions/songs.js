@@ -12,7 +12,7 @@ const setLoading = () => {
 export const fetchSongs = () => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.get("/api/songs", tokenConfig(getState))
+    axios.get("http://localhost:3001/api/songs", { withCredentials: true } /*tokenConfig(getState)*/)
     .then(res => dispatch({
         type: SONGS_FETCHED,
         payload: res.data
@@ -25,5 +25,5 @@ export const fetchSongs = () => (dispatch, getState) => {
         };
 
         dispatch(returnErrors("", 500, "SONGS_ERROR"));
-    })
+    });
 };

@@ -21,7 +21,7 @@ export const createStripeSubscription = () => dispatch => {
         }
     };
 
-    axios.post("/api/stripe/subscriptions", subscription, config)
+    axios.post("http://localhost:3001/api/stripe/subscriptions", subscription, config)
     .then(res => dispatch({
         type: STRIPE_SUBSCRIPTION_CREATED,
         payload: res.data
@@ -38,7 +38,7 @@ export const createStripeSubscription = () => dispatch => {
 export const deleteStripeSubscription = _id => dispatch => {
     dispatch(setLoading());
 
-    axios.delete(`/api/stripe/subscriptions/${_id}`)
+    axios.delete(`http://localhost:3001/api/stripe/subscriptions/${_id}`)
     .then(res => dispatch({
         type: STRIPE_SUBSCRIPTION_DELETED,
         payload: _id
@@ -55,7 +55,7 @@ export const deleteStripeSubscription = _id => dispatch => {
 export const fetchPublicStripeKey = () => dispatch => {
     dispatch(setLoading());
 
-    axios.get("/api/stripe/keys")
+    axios.get("http://localhost:3001/api/stripe/keys")
     .then(res => dispatch({
         type: STRIPE_PUBLIC_KEY_FETCHED,
         payload: res.data
@@ -78,7 +78,7 @@ export const createPaypalSubscription = subscription => dispatch => {
         }
     };
 
-    axios.post("/api/paypal/subscriptions", subscription, config)
+    axios.post("http://localhost:3001/api/paypal/subscriptions", subscription, config)
     .then(res => dispatch({
         type: PAYPAL_SUBSCRIPTION_CREATED,
         payload: res.data
@@ -95,7 +95,7 @@ export const createPaypalSubscription = subscription => dispatch => {
 export const deletePaypalSubscription = _id => dispatch => {
     dispatch(setLoading());
 
-    axios.delete(`/api/paypal/subscriptions/${_id}`)
+    axios.delete(`http://localhost:3001/api/paypal/subscriptions/${_id}`)
     .then(res => dispatch({
         type: PAYPAL_SUBSCRIPTION_DELETED,
         payload: _id

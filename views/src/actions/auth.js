@@ -8,10 +8,10 @@ import {
 import { returnErrors } from "./errors";
 import axios from "axios";
 
-export const loadUser = () => (dispatch, getState) => {
+export const loadUser = () => dispatch => {
     dispatch({ type: USER_REQUESTED });
 
-    axios.get("/api/v1/users", tokenConfig(getState))
+    axios.get("http://localhost:3001/api/v1/users")
     .then(res => dispatch({
         type: USER_LOADED,
         payload: res.data
@@ -37,7 +37,7 @@ export const register = user => dispatch => {
         }
     };
 
-    axios.post("api/v1/users", user, config)
+    axios.post("http://localhost:3001api/v1/users", user, config)
     .then(res => dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data
@@ -63,7 +63,7 @@ export const login = user => dispatch => {
         }
     };
 
-    axios.post("/api/v1/users/authentication", user, config)
+    axios.post("http://localhost:3001/api/v1/users/authentication", user, config)
     .then(res => dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data
@@ -83,7 +83,7 @@ export const login = user => dispatch => {
 };
 
 export const logout = () => dispatch => {
-    axios.delete("/api/v1/users/authentication")
+    axios.delete("http://localhost:3001/api/v1/users/authentication")
     .then(res => dispatch({
         type: LOGOUT_SUCCESS
     }))

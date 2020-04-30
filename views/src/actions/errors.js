@@ -9,7 +9,7 @@ export const returnErrors = (message, status, id = null) => {
 };
 
 export const logErrors = (error, errorInfo) => dispatch => {
-    axios.post("/api/v1/errors", { error, errorInfo})
+    axios.post("http://localhost:3001/api/v1/errors", { error, errorInfo})
     .then(res => dispatch({
         type: ERRORS_LOGGED,
         payload: res.data
