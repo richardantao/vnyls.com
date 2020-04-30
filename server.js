@@ -10,6 +10,7 @@ const xss = require("xss-clean");
 /* --- Configuration --- */
 const app = express();
 const port = process.env.PORT || 3001;
+const authSecret = process.env.JWT_SECRET;
 require("./config/db");
 
 /* --- Middleware --- */
@@ -23,7 +24,7 @@ app.use(cors({
     credentials: true
     })
 );
-app.use(cookieParser());
+app.use(cookieParser(authSecret));
 app.use(xss());
 app.use(express.json());
 app.use(express.static(join(__dirname, "./views/build")));
