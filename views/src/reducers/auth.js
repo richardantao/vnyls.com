@@ -9,7 +9,7 @@ import {
 const initialState = {
     token: localStorage.getItem("token"), // change to cookie
     isAuthenticated: null,
-    loading: false,
+    isLoading: false,
     user: null
 };
 
@@ -18,43 +18,43 @@ export default (state = initialState, action) => {
         case USER_REQUESTED:
             return {
                 ...state,
-                loading: true
+                isLoading: true
             };
         case USER_LOADED:
             return {
                 ...state,
                 isAuthenticated: true,
-                loading: false,
+                isLoading: false,
                 user: action.payload
             };
         case REGISTER_SUCCESS:
             return {
                 ...state,
                 ...action.payload,
-                loading: false
+                isLoading: false
             };
         case LOGIN_SUCCESS:
             return {
                 ...state,
                 ...action.payload,
                 isAuthenticated: true,
-                loading: false
+                isLoading: false
             };
         case REGISTER_FAILED:
             return {
                 ...state,
                 user: null,
-                loading: false
+                isLoading: false
             };
         case AUTH_ERROR:
         case LOGIN_FAILED:
-        case LOGOUT_SUCCESS: 
+        case LOGOUT_SUCCESS:
             return {
                 ...state,
                 token: null,
                 user: null,
                 isAuthenticated: false,
-                loading: false
+                isLoading: false
             };
         default:
             return state;
