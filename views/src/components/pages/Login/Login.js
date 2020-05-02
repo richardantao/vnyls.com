@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
 import { login } from "../../../actions/auth";
@@ -57,9 +58,14 @@ class Login extends Component {
 
         return (
             <>
+                <Helmet>
+                    <meta name="description" content=""/>
+                    <meta name="keywords" content=""/>
+                    <title>Login</title>
+                </Helmet>
                 <Container id="login">
                     { message ? <Alert color="danger">{message}</Alert> : null }
-                    <Form onSubmit={this.handleSubmit}>
+                    <Form onSubmit={this.handleSubmit} className="login-form">
                         <Row>
                             <Col>
                                 <Label for="email">Email</Label>
@@ -86,9 +92,10 @@ class Login extends Component {
                         </Row>
                         <Row>
                             <Col>
-                                <Button type="submit">Login</Button>
+                                <Button type="submit" block>Sign In</Button>
                                 <br/>
                                 <a href="/forgot-password">Forgot Password?</a>
+                                <p>Don't have an account? <a href="/pricing#checkout">Sign Up</a></p>
                             </Col>
                         </Row>
                     </Form>
