@@ -5,8 +5,6 @@ const server = require("../../server");
 const should = require("chai").should();
 const chaiHttp = require("chai-http");
 
-const { good } = require("../data/songs.json");
-
 chai.use(chaiHttp);
 
 describe("/GET /api/songs", () => {
@@ -16,11 +14,13 @@ describe("/GET /api/songs", () => {
         .end((err, res) => {
             if(err) throw err;
 
+            console.log(res.body);
+
             res.should.have.property("status", 200);
 
-            res.body.entries.should.be.a("array");
+            res.body.should.be.a("array");
 
-            res.body.entries[0].should.have.property("name");
+            res.body.length.should.equal(23);
 
             done();
         });
