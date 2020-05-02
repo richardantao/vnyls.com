@@ -32,7 +32,8 @@ app.use(express.static(join(__dirname, "./views/build")));
 /* --- Routes --- */
 app.use("/api", require("./routes/auth"));
 app.use("/api", require("./routes/errors"));
-app.use("/api", require("./routes/payments"));
+app.use("/api", require("./routes/paypal"));
+app.use("/api", require("./routes/stripe"));
 app.use("/api", require("./routes/songs"));
 
 app.get("*", (req, res) => {
