@@ -27,6 +27,7 @@ exports.register = (req, res, next) => {
     body("password", "Password received an invalid input")
         .exists().withMessage("Password is a required field")
         .isLength({ min: 8, max: undefined }).withMessage("Password must be at least 8 characters")
+        .trim()
         .escape();
 
     if(!errors.isEmpty()) return res.status(400).json({ message: errors.msg });
@@ -47,9 +48,12 @@ exports.login = (req, res, next) => {
     const { email, password } = req.body;
 
     body("email")
+        .exists().withMessage("Email is a required field")
         .trim()
         .escape();
+
     body("password")
+        .exists().withMessage("Password is a required field")
         .trim()
         .escape();
 
@@ -61,7 +65,7 @@ exports.login = (req, res, next) => {
         password: 1
     })
     .then(user => {
-        if(!user.email) return res.status(404).json({ message: "This email is not associated with an active account" });
+        if(!user) return res.status(404).json({ message: "This email is not associated with an active account" });
 
         const passwordIsValid = bcrypt.compare(password, user.password);
         if(!passwordIsValid) return res.status(401).json({ message: "Incorrect password. Try again or click Forgot Password to reset it" });
