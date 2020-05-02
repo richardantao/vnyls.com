@@ -3,12 +3,12 @@ const jwt = require("jsonwebtoken");
 const secret = process.env.AUTH_SECRET;
 
 module.exports = (req, res, next) => {
-    const token = req.signedCookies.accessToken;
+    const { accessToken } = req.signedCookies;
 
-    if(!token) return res.status(401).json({ message: "Missing token, authorization denied" });
+    if(!accessToken) return res.status(401).json({ message: "Missing token, access denied" });
 
     try {
-        req.user = jwt.verify(token, secret);
+        req.user = jwt.verify(accessToken, secret);
 
         return next();
     } catch (err) {
