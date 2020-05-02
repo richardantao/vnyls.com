@@ -2,7 +2,7 @@ import { SONGS_REQUESTED, SONGS_ERROR, SONGS_FETCHED } from "../actions/types";
 
 const initialState = {
     isLoading: false,
-    songs: null
+    songs: []
 };
 
 export default (state = initialState, action) => {
@@ -19,6 +19,7 @@ export default (state = initialState, action) => {
             };
         case SONGS_FETCHED:
             return {
+                ...state,
                 isLoading: false,
                 songs: action.payload
             };
