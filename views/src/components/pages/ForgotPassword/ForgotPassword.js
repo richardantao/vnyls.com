@@ -6,7 +6,7 @@ import {  } from "../../../actions/auth";
 import { clearErrors } from "../../../actions/errors";
 import PropTypes from "prop-types";
 
-import { Form, Button } from "reactstrap";
+import { Form, Alert, Label, Input, Button } from "reactstrap";
 
 import "./ForgotPassword.scss";
 
@@ -49,26 +49,28 @@ class ForgotPassword extends Component {
         const { email, message } = this.state;
 
         return (
-            <Helmet>
-                <meta name="description" content=""/>
-                <meta name="keywords" content=""/>
-                <title>Forgot Password</title>
-            </Helmet>
-            <main role="main">
-                <Form onSubmit={this.handleSubmit}>
-                    { message ? <Alert>{message}</Alert> : null }
-                    <Label for="email">Email</Label>
-                    <Input
-                        name="email"
-                        type="email"
-                        value={email}
-                        onChange={this.handleChange}
-                        required
-                    />
+            <>
+                <Helmet>
+                    <meta name="description" content=""/>
+                    <meta name="keywords" content=""/>
+                    <title>Forgot Password</title>
+                </Helmet>
+                <main role="main">
+                    <Form onSubmit={this.handleSubmit}>
+                        { message ? <Alert>{message}</Alert> : null }
+                        <Label for="email">Email</Label>
+                        <Input
+                            name="email"
+                            type="email"
+                            value={email}
+                            onChange={this.handleChange}
+                            required
+                        />
 
-                    <Button type="submit"></Button>
-                </Form>
-            </main>
+                        <Button type="submit"></Button>
+                    </Form>
+                </main>
+            </>
         );
     };
 };
