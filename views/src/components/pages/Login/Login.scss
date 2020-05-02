@@ -6,6 +6,10 @@
     position: relative;
         top: 12rem;
 
+    a {
+        color: $accent-color;
+    }
+
     input {
         margin-bottom: 1rem;
     }
