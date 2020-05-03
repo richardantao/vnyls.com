@@ -16,8 +16,8 @@ module.exports = (req, res) => {
         let links = [];
 
         for(let i = 0; i < entries.length; i++) {
-            const downloadFile = path => {
-                Dropbox.filesGetTemporaryLink({ path })
+            const downloadFile = async path => {
+                await Dropbox.filesGetTemporaryLink({ path })
                 .then(file => {
                     return appendLinksList(file.link);
                 })
@@ -31,7 +31,11 @@ module.exports = (req, res) => {
             const appendLinksList = link => {
                 if(i !== entries.length - 1) return links = [...links, link];
 
-                return callback(null, links);
+                return setTimeout(() => {
+                    links = [...links, link];
+
+                    callback(null, links);
+                }, 500);
             };
         };
     };
