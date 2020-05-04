@@ -1,16 +1,12 @@
 import {
     PAYMENTS_REQUESTED, PAYMENTS_ERROR,
-    STRIPE_SUBSCRIPTION_CREATED, STRIPE_SUBSCRIPTION_DELETED, STRIPE_PUBLIC_KEY_FETCHED,
-    PAYPAL_SUBSCRIPTION_CREATED, PAYPAL_SUBSCRIPTION_DELETED
+    STRIPE_SUBSCRIPTION_CREATED, STRIPE_SUBSCRIPTION_DELETED, STRIPE_PUBLIC_KEY_FETCHED
 } from "../actions/types";
 
 const initialState = {
     isLoading: false,
-    paypal: null,
-    stripe: {
-        key: null,
-        subscription: null
-    }
+    key: null,
+    subscription: null
 };
 
 export default (state = initialState, action) => {
@@ -51,18 +47,6 @@ export default (state = initialState, action) => {
                     ...state.stripe,
                     key: action.payload
                 }
-            };
-        case PAYPAL_SUBSCRIPTION_CREATED:
-            return {
-                ...state,
-                isLoading: false,
-                paypal: action.payload
-            };
-        case PAYPAL_SUBSCRIPTION_DELETED:
-            return {
-                ...state,
-                isLoading: false,
-                paypal: {}
             };
         default:
             return state;
