@@ -5,7 +5,7 @@ const secret = process.env.AUTH_SECRET;
 module.exports = (req, res, next) => {
     const { accessToken } = req.signedCookies;
 
-    if(!accessToken) return res.status(401).json({ message: "Missing token, access denied" });
+    if(!accessToken) return res.status(401).json("Missing token, access denied");
 
     try {
         req.user = jwt.verify(accessToken, secret);
@@ -13,6 +13,6 @@ module.exports = (req, res, next) => {
         return next();
     } catch (err) {
         res.clearCookie("accessToken");
-        return res.status(400).json({ message: "Token is not valid" });
+        return res.status(400).json("Token is not valid, please login sign in agiain");
     };
 };
