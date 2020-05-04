@@ -37,7 +37,7 @@
     "dev": "concurrently \"nodemon server.js\" \"cd views && npm start\"",
     "server": "nodemon server.js",
     "start": "node server.js",
-    "test": "mocha **/*.test.js --timeout 5000 --recursive"
+    "test": "mocha --timeout 5000 --recursive"
   },
   "repository": {
     "type": "git",
