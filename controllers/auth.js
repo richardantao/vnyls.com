@@ -86,7 +86,6 @@ exports.login = (req, res) => {
             name: user.name
         }, authSecret, { expiresIn: "3d" }, (err, token) => {
             if(err) return res.status(500).json(err.message);
-            console.log(`Token signed: ${token}`);
 
             return res.status(201).cookie("accessToken", token, {
                 httpOnly: true,
