@@ -1,6 +1,8 @@
 import {
     PAYMENTS_REQUESTED,
-    STRIPE_SUBSCRIPTION_CREATED, STRIPE_SUBSCRIPTION_DELETED, STRIPE_PUBLIC_KEY_FETCHED
+    STRIPE_SUBSCRIPTION_CREATED,
+    STRIPE_SUBSCRIPTION_RETURNED, STRIPE_SUBSCRIPTION_UPDATED, STRIPE_SUBSCRIPTION_DELETED,
+    STRIPE_PUBLIC_KEY_FETCHED
 } from "./types";
 import { returnErrors } from "./errors";
 import axios from "axios";
@@ -11,8 +13,7 @@ const setLoading = () => {
     };
 };
 
-
-export const createSubscription = () => dispatch => {
+export const createSubscription = subscription => dispatch => {
     dispatch(setLoading());
 
     const config = {
@@ -24,6 +25,46 @@ export const createSubscription = () => dispatch => {
     axios.post("http://localhost:3001/api/stripe/subscriptions", subscription, config)
     .then(res => dispatch({
         type: STRIPE_SUBSCRIPTION_CREATED,
+        payload: res.data
+    }))
+    .catch(err => {
+        if(err.response) dispatch(returnErrors(err.response.data, err.response.status, "PAYMENTS_ERROR"));
+
+        else if(err.request) dispatch(returnErrors(err.request.data, err.request.status, "PAYMENTS_ERROR"));
+
+        dispatch(returnErrors("An error occurred", 500, "PAYMENTS_ERROR"));
+    });
+};
+
+export const returnSubscription = _id => dispatch => {
+    dispatch(setLoading());
+
+    axios.get(`http://localhost:3001/api/stripe/subscriptions/${_id}`)
+    .then(res => dispatch({
+        type: STRIPE_SUBSCRIPTION_RETURNED,
+        payload: res.data
+    }))
+    .catch(err => {
+        if(err.response) dispatch(returnErrors(err.response.data, err.response.status, "PAYMENTS_ERROR"));
+
+        else if(err.request) dispatch(returnErrors(err.request.data, err.request.status, "PAYMENTS_ERROR"));
+
+        dispatch(returnErrors("An error occurred", 500, "PAYMENTS_ERROR"));
+    });
+};
+
+export const updateSubscription = (_id, subscription) => dispatch => {
+    dispatch(setLoading());
+
+    const config = {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
+
+    axios.put(`http://localhost:3001/api/stripe/subscriptions/${_id}`, subscription, config)
+    .then(res => dispatch({
+        type: STRIPE_SUBSCRIPTION_UPDATED,
         payload: res.data
     }))
     .catch(err => {
