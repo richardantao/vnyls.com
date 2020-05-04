@@ -12,10 +12,10 @@ exports.register = (req, res) => {
 
         const hashPassword = callback => {
             bcrypt.genSalt(10, (err, salt) => {
-            if(err) return res.status(500).json({ message: "The server was unable to generate a salt for your password" });
+            if(err) return res.status(500).json("The server was unable to generate a salt for your password");
 
             bcrypt.hash(password, salt, (err, hash) => {
-                if(err) return res.status(500).json({ message: "The server was unable to hash your password" });
+                if(err) return res.status(500).json("The server was unable to hash your password");
 
                 return callback(null, hash);
             });
@@ -35,12 +35,12 @@ exports.register = (req, res) => {
             return callback(null, user);
         })
         .catch(err => {
-            return res.status(500).json({ message: err.message });
+            return res.status(500).json(err.message);
         });
     };
 
     async.waterfall([ hashPassword, registerUser ], (err, results) => {
-        if(err) return res.status(500).json({ message: err.message });
+        if(err) return res.status(500).json(err.message);
 
         return res.status(201).json(results);
     });
@@ -55,12 +55,12 @@ exports.user = (req, res) => {
         email: 1
     })
     .then(user => {
-        if(!user) return res.status(404).json({ message: "User information could not be found" });
+        if(!user) return res.status(404).json("User information could not be found");
 
         return res.status(200).json(user);
     })
     .catch(err => {
-        return res.status(500).json({ message: err.message });
+        return res.status(500).json(err.message);
     });
 };
 
@@ -72,7 +72,7 @@ exports.deregister = (req, res) => {
         return res.status(200);
     })
     .catch(err => {
-        return res.status(500).json({ message: err.message });
+        return res.status(500).json(err.message);
     });
 };
 
@@ -85,7 +85,7 @@ exports.login = (req, res) => {
             _id: user._id,
             name: user.name
         }, authSecret, { expiresIn: "3d" }, (err, token) => {
-            if(err) return res.status(500).json({ message: err.message });
+            if(err) return res.status(500).json(err.message);
             console.log(`Token signed: ${token}`);
 
             return res.status(201).cookie("accessToken", token, {
@@ -93,14 +93,14 @@ exports.login = (req, res) => {
                 maxAge: 3*60*60*24,
                 signed: true,
                 secure: true
-            }).json({ message: "Login successful" });
+            }).json("Login successful");
         });
     })
     .catch(err => {
-        return res.status(500).json({ message: err.message });
+        return res.status(500).json(err.message);
     });
 };
 
 exports.logout = (req, res) => {
-    return res.status(200).clearCookie("accessToken").json({ message: "Logout successful" });
+    return res.status(200).clearCookie("accessToken").json("Logout successful");
 };

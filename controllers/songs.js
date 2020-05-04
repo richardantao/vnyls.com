@@ -16,8 +16,8 @@ module.exports = (req, res) => {
         let links = [];
 
         for(let i = 0; i < entries.length; i++) {
-            const downloadFile = async path => {
-                await Dropbox.filesGetTemporaryLink({ path })
+            const downloadFile = path => {
+                Dropbox.filesGetTemporaryLink({ path })
                 .then(file => {
                     return appendLinksList(file.link);
                 })
@@ -41,7 +41,7 @@ module.exports = (req, res) => {
     };
 
     async.waterfall([ fetchPaths, getLinks ], (err, results) => {
-        if(err) return res.status(500).json({ message: err.message });
+        if(err) return res.status(500).json(err.message);
 
         return res.status(200).json(results);
     });
