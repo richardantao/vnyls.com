@@ -14,13 +14,13 @@ describe("/GET /api/songs", () => {
         .end((err, res) => {
             if(err) throw err;
 
-            console.log(res.body);
-
             res.should.have.property("status", 200);
 
             res.body.should.be.a("array");
 
             res.body.length.should.equal(23);
+
+            res.body.map(link => link.should.be.a("string"));
 
             done();
         });
