@@ -1,11 +1,12 @@
 const router = require("express").Router();
+const validation = require("../middleware/validation/stripe");
 const controller = require("../controllers/stripe");
 
-router.post("/stripe/subscriptions", controller.createSubscription);
+router.post("/stripe/subscriptions", validation, controller.createSubscription);
 
 router.get("/stripe/subscriptions/:_id", controller.retrieveSubscription);
 
-router.put("/stripe/subscriptions/:_id", controller.updateSubscription);
+router.put("/stripe/subscriptions/:_id", validation, controller.updateSubscription);
 
 router.delete("/stripe/subscriptions/:_id", controller.deleteSubscription);
 
