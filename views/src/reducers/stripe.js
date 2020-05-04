@@ -1,6 +1,8 @@
 import {
     PAYMENTS_REQUESTED, PAYMENTS_ERROR,
-    STRIPE_SUBSCRIPTION_CREATED, STRIPE_SUBSCRIPTION_DELETED, STRIPE_PUBLIC_KEY_FETCHED
+    STRIPE_SUBSCRIPTION_CREATED,
+    STRIPE_SUBSCRIPTION_RETURNED, STRIPE_SUBSCRIPTION_UPDATED, STRIPE_SUBSCRIPTION_DELETED,
+    STRIPE_PUBLIC_KEY_FETCHED
 } from "../actions/types";
 
 const initialState = {
@@ -22,31 +24,24 @@ export default (state = initialState, action) => {
                 isLoading: false
             };
         case STRIPE_SUBSCRIPTION_CREATED:
+        case STRIPE_SUBSCRIPTION_RETURNED:
+        case STRIPE_SUBSCRIPTION_UPDATED:
             return {
                 ...state,
                 isLoading: false,
-                stripe: {
-                    ...state.stripe,
-                    subscription: action.payload
-                }
+                subscription: action.payload
             };
         case STRIPE_SUBSCRIPTION_DELETED:
             return {
                 ...state,
                 isLoading: false,
-                stripe: {
-                    ...state.stripe,
-                    subscription: null
-                }
+                subscription: null
             };
         case STRIPE_PUBLIC_KEY_FETCHED:
             return {
                 ...state,
                 isLoading: false,
-                stripe: {
-                    ...state.stripe,
-                    key: action.payload
-                }
+                key: action.payload
             };
         default:
             return state;

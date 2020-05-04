@@ -1,6 +1,7 @@
 import {
     PAYMENTS_REQUESTED, PAYMENTS_ERROR,
-    PAYPAL_SUBSCRIPTION_CREATED, PAYPAL_SUBSCRIPTION_DELETED
+    PAYPAL_SUBSCRIPTION_CREATED,
+    PAYPAL_SUBSCRIPTION_RETURNED, PAYPAL_SUBSCRIPTION_UPDATED, PAYPAL_SUBSCRIPTION_DELETED
 } from "../actions/types";
 
 const initialState = {
@@ -21,16 +22,18 @@ export default (state = initialState, action) => {
                 isLoading: false
             };
         case PAYPAL_SUBSCRIPTION_CREATED:
+        case PAYPAL_SUBSCRIPTION_RETURNED:
+        case PAYPAL_SUBSCRIPTION_UPDATED:
             return {
                 ...state,
                 isLoading: false,
-                paypal: action.payload
+                subscription: action.payload
             };
         case PAYPAL_SUBSCRIPTION_DELETED:
             return {
                 ...state,
                 isLoading: false,
-                paypal: {}
+                subscription: null
             };
         default:
             return state;
