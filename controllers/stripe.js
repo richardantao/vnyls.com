@@ -3,9 +3,9 @@ const stripePublishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const User = require("../models/Users");
-
+jqtx-xsqz-yxcj-vwpz-lamj
 exports.createSubscription = (req, res) => {
-    const { payment_method, email } = req.body;
+    const { payment_method, name, email, phone } = req.body;
     const { isAnnual } = req.query;
 
     const plan = isAnnual ? process.env.STRIPE_SUBSCRIPTION_ANNUAL_PLAN_ID : process.env.STRIPE_SUBSCRIPTION_MONTHLY_PLAN_ID;
@@ -13,7 +13,9 @@ exports.createSubscription = (req, res) => {
     const createCustomer = callback => {
         stripe.customers.create({
             payment_method,
+            name,
             email,
+            phone,
             invoice_settings: {
                 default_payment_method: payment_method
             }
