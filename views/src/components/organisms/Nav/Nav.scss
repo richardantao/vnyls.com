@@ -1,12 +1,21 @@
+/* Nav.css */
 @import "../../../variables.scss";
 
 #nav {
     /* --- Portrait Mobile --- */
     background-color: $secondary-color;
 
+    ul > * {
+        display: none;
+    }
+
     a {
         color: $primary-color;
         font-weight: bold;
+    }
+
+    #hamburger {
+        font-size: 2rem;
     }
 
     .highlight-link {
@@ -21,12 +30,14 @@
 
     /* --- Portrait Tablet --- */
     @media (min-width: 768px) {
-        
+        ul > * {
+            display: block;
+        }
     }
 
     /* ---  Landscape Tablet --- */
     @media (min-width: 992px) {
-        
+    
     }
 
     /* --- Small Laptop --- */
