@@ -39,6 +39,7 @@ class App extends Component {
           <Route path="/blog" component={Blog}/>
           <Route path="/blog/:_id" component={Post}/>
           <Route path="/pricing" component={Pricing}/>
+          <Route path="/checkout" component={Stripe}/>
           <Route exact path="/" component={Home}/>
           <Route path="*" component={NotFound}/>
         </Switch>
@@ -73,6 +74,12 @@ const ForgotPassword = Loadable({
 
 const Pricing = Loadable({
   loader: () => import(/* webpackChunkName: "Pricing" */ "./components/pages/Pricing"),
+  loading: Loading,
+  delay: 500
+});
+
+const Stripe = Loadable({
+  loader: () => import(/* webpackChunkName: "Stripe" */ "./components/pages/Stripe"),
   loading: Loading,
   delay: 500
 });
