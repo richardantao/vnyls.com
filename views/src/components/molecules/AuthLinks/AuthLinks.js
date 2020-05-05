@@ -4,13 +4,8 @@ import { NavItem, NavLink } from "reactstrap";
 
 export default () => {
     return (
-        <>
-            <NavItem>
-                <NavLink href="/signin">Sign In</NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink href="/pricing#checkout" className="highlight-link">Sign Up</NavLink>
-            </NavItem>
-        </>
+        <NavItem>
+            <NavLink href="/signin" className="highlight-link">Sign In</NavLink>
+        </NavItem>
     );
 };
