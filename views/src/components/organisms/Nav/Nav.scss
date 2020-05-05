@@ -15,7 +15,7 @@
     }
 
     #hamburger {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .highlight-link {
@@ -25,13 +25,19 @@
 
     /* --- Landscape Mobile --- */
     @media (min-width: 576px) {
-
+        #hamburger {
+            font-size: 2rem;
+        }
     }
 
     /* --- Portrait Tablet --- */
     @media (min-width: 768px) {
         ul > * {
             display: block;
+        }
+
+        #hamburger {
+            display: none;
         }
     }
 
